@@ -4,3 +4,11 @@ parameters:
 services:
   app.crawler.wikipedia:
     class: AppBundle\Service\WikipediaCrawlerService
+
+  app.crawler.default:
+    class: AppBundle\Service\WikipediaCrawlerService
+
+  app.fetcher:
+    class: AppBundle\Service\FetcherService
+    arguments:
+    - '@app.crawler.default'
