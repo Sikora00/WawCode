@@ -4,3 +4,5 @@ parameters:
 services:
   app.crawler.wikipedia:
     class: AppBundle\Service\WikipediaCrawlerService
+  app.dataResearcher.wikipedia:
+    class: AppBundle\Service\WikipediaDateResearcherService
