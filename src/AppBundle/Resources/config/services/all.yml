@@ -1,2 +1,5 @@
-  app.crawler:
-    class: AppBundle\Service\CrawlerService
+  app.crawler.default:
+    class: AppBundle\Service\CrawlerSevice
+
+  app.crawler.wikipedia:
+    class: AppBundle\Service\WikipediaCrawlerSevice
