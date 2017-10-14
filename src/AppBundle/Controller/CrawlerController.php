@@ -23,7 +23,6 @@ class CrawlerController extends BaseController
         $form['login'] = 'symfonyfan';
         $form['password'] = 'anypass';
 
-// submit that form
         $crawler = $client->submit($form);
 
     }

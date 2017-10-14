@@ -1,0 +1,2 @@
+  app.crawler:
+    class: AppBundle\Service\CrawlerService
