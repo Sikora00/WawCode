@@ -12,3 +12,9 @@ services:
     class: AppBundle\Service\FetcherService
     arguments:
     - '@app.crawler.default'
+    - '@app.api_manager'
+
+  app.api_manager:
+    class: AppBundle\Service\APIManager
+    arguments:
+    - '%apiurl%'

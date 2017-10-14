@@ -28,9 +28,10 @@ class FetchDataCommand extends ContainerAwareCommand
     {
         // outputs multiple lines to the console (adding "\n" at the end of each line)
         $output->writeln([
+            '<fg=yellow>',
             'Fetch Data',
             '============',
-            '',
+            '</>',
         ]);
 
         $fetcher = $this->getContainer()->get('app.fetcher');
@@ -40,7 +41,6 @@ class FetchDataCommand extends ContainerAwareCommand
         $output->writeln('Whoa!');
 
         // outputs a message without adding a "\n" at the end of the line
-        $output->write('You are about to ');
-        $output->write('create a user.');
+        $output->write('Data fetched');
     }
 }
