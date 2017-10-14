@@ -1,0 +1,4 @@
+test:
+  path: /test
+  defaults: { _controller: AppBundle:Crawler:test}
+  methods: [GET, OPTIONS]
