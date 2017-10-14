@@ -1,5 +1,6 @@
-  app.crawler.default:
-    class: AppBundle\Service\CrawlerSevice
+parameters:
+#    parameter_name: value
 
+services:
   app.crawler.wikipedia:
-    class: AppBundle\Service\WikipediaCrawlerSevice
+    class: AppBundle\Service\WikipediaCrawlerService

@@ -2,15 +2,16 @@
 declare(strict_types=1);
 
 
-namespace Service;
+namespace AppBundle\Service;
 
 
 
 
 interface CrawlerServiceInterface
 {
-    function getSiteBaseUrl(): string ;
 
-    function getDayURLModifier(\DateTime $date): string ;
+    function getFullUrl(\DateTime $date);
+
+    function suck(\DateTime $date);
 
 }
