@@ -19,14 +19,14 @@ class APIManager
 
     public function createEventAction(HistoricalEvent $event)
     {
-
         $url = $this->apiUrl . '/event';
         $content = '{
-	"name":"' . $event->name . '" ,
-	"content": "' . $event->content . '",
-	"day": "' . $event->day . '",
-	"month": "' . $event->month . '",
-	"year": "' . $event->year . '"
+	        "name":"' . $event->name . '" ,
+	        "content": "' . $event->content . '",
+	        "day": "' . $event->day . '",
+	        "month": "' . $event->month . '",
+	        "year": "' . $event->year . '",
+	        "imageUrl": "'.$event->image.'"
 }';
 
         $curl = curl_init($url);

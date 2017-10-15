@@ -10,5 +10,6 @@ class HistoricalEvent
     public $year;
     public $name;
     public $content;
+    public $image;
 
 }

@@ -20,11 +20,12 @@ class FetcherService
      */
     protected $dateResearcherServices;
 
-    public function __construct(CrawlerServiceInterface $crawler, APIManager $APIManager, DateResearcherServiceInterface $dateResearcherService)
+    public function __construct(CrawlerServiceInterface $crawler, APIManager $APIManager, DateResearcherServiceInterface $dateResearcherService, CrawlerImageServiceInterface $crawlerImageService)
     {
         $this->crawler = $crawler;
         $this->apiManager = $APIManager;
         $this->dateResearcherServices = $dateResearcherService;
+        $this->crawlerImageService = $crawlerImageService;
     }
 
     public function fetchEvents()
@@ -37,11 +38,13 @@ class FetcherService
             $dataArray = $this->dateResearcherServices->removeFromArray( $this->dateResearcherServices->getFilteredDate($newCrawler));
             foreach ($dataArray as $data){
                 $event = new HistoricalEvent();
+                $image = $this->crawlerImageService->getImage($data['year'],$data['content']);
                 $event->name = 'Historyczne Wydarzenie';
                 $event->content = $data['content'];
                 $event->day = $i->format('d');
                 $event->month = $i->format('m');
                 $event->year = $data['year'];
+                $event->image = $image;
                 $this->apiManager->createEventAction($event);
             }
         }

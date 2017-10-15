@@ -14,6 +14,7 @@ services:
     - '@app.crawler.default'
     - '@app.api_manager'
     - '@app.dataResearcher.wikipedia'
+    - '@app.crawlerImage.google'
 
   app.api_manager:
     class: AppBundle\Service\APIManager
@@ -22,3 +23,6 @@ services:
     
   app.dataResearcher.wikipedia:
     class: AppBundle\Service\WikipediaDateResearcherService
+
+  app.crawlerImage.google:
+    class: AppBundle\Service\GoogleCrawlerImageService
