@@ -8,14 +8,16 @@
 namespace AppBundle\Command;
 
 use AppBundle\Message\ChatMessageComponent;
+use Ratchet\App;
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SocketCommand extends Command
+class SocketCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
@@ -33,16 +35,17 @@ class SocketCommand extends Command
             'Starting chat, open your browser.',// Empty line
         ]);
 
-        $server = IoServer::factory(
-            new HttpServer(
-                new WsServer(
-                    new ChatMessageComponent()
-                )
-            ),
-            8080
-        );
+        $apiManager = $this->getContainer()->get('app.api_manager');
 
-        $server->run();
+        $chats = $apiManager->getChatList();
+
+        $app = new App('localhost',8080,'0.0.0.0');
+
+        foreach ($chats as $chat) {
+            $app->route('/'.$chat['id'],new ChatMessageComponent());
+        }
+        $app->run();
+
     }
 
 }
