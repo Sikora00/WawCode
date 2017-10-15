@@ -5,6 +5,7 @@
  * Date: 15.10.2017
  * Time: 10:17
  */
+
 namespace AppBundle\Command;
 
 use AppBundle\Message\ChatMessageComponent;
@@ -23,8 +24,7 @@ class SocketCommand extends ContainerAwareCommand
     {
         $this->setName('sockets:start')
             ->setHelp("Starts the chat socket demo")
-            ->setDescription('Starts the chat socket demo')
-        ;
+            ->setDescription('Starts the chat socket demo');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -35,16 +35,14 @@ class SocketCommand extends ContainerAwareCommand
             'Starting chat, open your browser.',// Empty line
         ]);
 
-        $apiManager = $this->getContainer()->get('app.api_manager');
-
-        $chats = $apiManager->getChatList();
-
-        $app = new App('localhost',8080,'0.0.0.0');
-
-        foreach ($chats as $chat) {
-            $app->route('/'.$chat['id'],new ChatMessageComponent());
-        }
-        $app->run();
+        $server = IoServer::factory(
+            new HttpServer(
+                new WsServer(
+                    new ChatMessageComponent()
+                )
+            ),
+            8080
+        );
 
     }
 
