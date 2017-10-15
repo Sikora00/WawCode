@@ -15,7 +15,7 @@ class WikipediaDateResearcherService
         $date = $crawler->filter('li')->each(function (Crawler $node, $i) {
             if ((strstr(strtolower($node->text()), 'warszawa') || strstr(strtolower($node->text()), 'w warszawie') || strstr(strtolower($node->text()), 'warszawskiego')) && $node->children()->filter('ul')->count() == 0) {
                 return [
-                    'text' => $node->text(),
+                    'text' => $this->removeYearFromString($node->text()),
                     'data' => $this->takeYear($node),
                 ];
             } else {
@@ -30,7 +30,7 @@ class WikipediaDateResearcherService
         return array_filter($array);
     }
 
-    function takeYear(Crawler $node)
+    protected function takeYear(Crawler $node)
     {
         $text = $node->text();
         $parentText = $node->parents()->parents()->text();
@@ -43,5 +43,9 @@ class WikipediaDateResearcherService
             $year = $data->format('Y');
         }
         return $year;
+    }
+
+    protected function removeYearFromString($string){
+        return preg_replace("/\b\d{4}\b/", "", $string);
     }
 }
