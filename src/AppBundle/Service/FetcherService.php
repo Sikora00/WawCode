@@ -24,8 +24,8 @@ class FetcherService
 
     public function fetchEvents()
     {
-        $begin = new \DateTime( "2015-07-03" );
-        $end   = new \DateTime( "2015-07-09" );
+        $begin = new \DateTime( "2012-01-01" );
+        $end   = new \DateTime( "2012-12-31" );
 
         for($i = $begin; $i <= $end; $i->modify('+1 day')){
             $this->crawler->suck($i);
