@@ -30,8 +30,8 @@ class FetcherService
 
     public function fetchEvents()
     {
-        $begin = new \DateTime( "2012-01-01" );
-        $end   = new \DateTime( "2012-12-31" );
+        $begin = new \DateTime( "2008-01-01" );
+        $end   = new \DateTime( "2008-12-31" );
 
         for($i = $begin; $i <= $end; $i->modify('+1 day')){
             $newCrawler = $this->crawler->suck($i);
