@@ -43,6 +43,7 @@ class SocketCommand extends ContainerAwareCommand
             ),
             8080
         );
+        $server->run();
 
     }
 
