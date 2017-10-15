@@ -1,0 +1,9 @@
+test:
+  path: /test
+  defaults: { _controller: AppBundle:Crawler:test}
+  methods: [GET, OPTIONS]
+
+download:
+  path: /download
+  defaults: {_controller: AppBundle:Crawler:downloadData}
+  methods: [GET, OPTIONS]

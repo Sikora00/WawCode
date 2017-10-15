@@ -1,0 +1,28 @@
+parameters:
+#    parameter_name: value
+
+services:
+  app.crawler.wikipedia:
+    class: AppBundle\Service\WikipediaCrawlerService
+
+  app.crawler.default:
+    class: AppBundle\Service\WikipediaCrawlerService
+
+  app.fetcher:
+    class: AppBundle\Service\FetcherService
+    arguments:
+    - '@app.crawler.default'
+    - '@app.api_manager'
+    - '@app.dataResearcher.wikipedia'
+    - '@app.crawlerImage.google'
+
+  app.api_manager:
+    class: AppBundle\Service\APIManager
+    arguments:
+    - '%apiurl%'
+    
+  app.dataResearcher.wikipedia:
+    class: AppBundle\Service\WikipediaDateResearcherService
+
+  app.crawlerImage.google:
+    class: AppBundle\Service\GoogleCrawlerImageService
