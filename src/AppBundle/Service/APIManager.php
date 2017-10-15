@@ -20,14 +20,14 @@ class APIManager
     public function createEventAction(HistoricalEvent $event)
     {
 
-        $url = $this->apiUrl.'/event';
+        $url = $this->apiUrl . '/event';
         $content = '{
-	"name": "elo",
-	"content": "elo",
-	"day": 15,
-	"month": 10,
-	"year": 2017
-}'; //TODOja
+	"name":"' . $event->name . '" ,
+	"content": "' . $event->content . '",
+	"day": "' . $event->day . '",
+	"month": "' . $event->month . '",
+	"year": "' . $event->year . '"
+}';
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, false);
@@ -41,7 +41,7 @@ class APIManager
 
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        if ( $status != 200 ) {
+        if ($status != 200) {
             die("Error: call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
         }
 

@@ -5,18 +5,17 @@ namespace AppBundle\Service;
 
 
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\Validator\Constraints\DateTime;
 
-class WikipediaDateResearcherService
+class WikipediaDateResearcherService implements DateResearcherServiceInterface
 {
 
-    function getFilteredDate(Crawler $crawler)
+    function getFilteredDate(Crawler $crawler) : array
     {
         $date = $crawler->filter('li')->each(function (Crawler $node, $i) {
             if ((strstr(strtolower($node->text()), 'warszawa') || strstr(strtolower($node->text()), 'w warszawie') || strstr(strtolower($node->text()), 'warszawskiego')) && $node->children()->filter('ul')->count() == 0) {
                 return [
-                    'text' => $this->removeYearFromString($node->text()),
-                    'data' => $this->takeYear($node),
+                    'content' => $this->removeYearFromString($node->text()),
+                    'year' => $this->takeYear($node),
                 ];
             } else {
                 return null;
@@ -25,7 +24,7 @@ class WikipediaDateResearcherService
         return $date;
     }
 
-    function removeFromArray($array)
+    function removeFromArray(array $array) : array
     {
         return array_filter($array);
     }

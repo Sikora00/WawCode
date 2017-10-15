@@ -9,8 +9,12 @@
 namespace AppBundle\Service;
 
 
+use Symfony\Component\DomCrawler\Crawler;
+
 interface DateResearcherServiceInterface
 {
-    function getFilteredData();
+    function getFilteredDate(Crawler $crawler): array ;
+
+    function removeFromArray(array $array): array ;
 
 }

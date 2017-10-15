@@ -13,10 +13,12 @@ services:
     arguments:
     - '@app.crawler.default'
     - '@app.api_manager'
+    - '@app.dataResearcher.wikipedia'
 
   app.api_manager:
     class: AppBundle\Service\APIManager
     arguments:
     - '%apiurl%'
+    
   app.dataResearcher.wikipedia:
     class: AppBundle\Service\WikipediaDateResearcherService

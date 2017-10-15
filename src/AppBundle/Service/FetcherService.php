@@ -15,11 +15,16 @@ class FetcherService
      * @var APIManager
      */
     protected $apiManager;
+    /**
+     * @var DateResearcherServiceInterface
+     */
+    protected $dateResearcherServices;
 
-    public function __construct(CrawlerServiceInterface $crawler, APIManager $APIManager)
+    public function __construct(CrawlerServiceInterface $crawler, APIManager $APIManager, DateResearcherServiceInterface $dateResearcherService)
     {
         $this->crawler = $crawler;
         $this->apiManager = $APIManager;
+        $this->dateResearcherServices = $dateResearcherService;
     }
 
     public function fetchEvents()
@@ -28,14 +33,17 @@ class FetcherService
         $end   = new \DateTime( "2012-12-31" );
 
         for($i = $begin; $i <= $end; $i->modify('+1 day')){
-            $this->crawler->suck($i);
-            $event = new HistoricalEvent();//TODO Create Entity From crawler
-            $event->name = 'Test';
-            $event->content = 'Test';
-            $event->day = $i->format('d');
-            $event->month = $i->format('m');
-            $event->year = $i->format('y');
-            $this->apiManager->createEventAction($event);
+            $newCrawler = $this->crawler->suck($i);
+            $dataArray = $this->dateResearcherServices->removeFromArray( $this->dateResearcherServices->getFilteredDate($newCrawler));
+            foreach ($dataArray as $data){
+                $event = new HistoricalEvent();
+                $event->name = 'Historyczne Wydarzenie';
+                $event->content = $data['content'];
+                $event->day = $i->format('d');
+                $event->month = $i->format('m');
+                $event->year = $data['year'];
+                $this->apiManager->createEventAction($event);
+            }
         }
     }
 
