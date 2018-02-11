@@ -1,72 +1,93 @@
-Symfony Standard Edition
-========================
+# Hackaton WawCode 2017 - Kalendarz Historyczny Warszawy
+## Team Bułka Software
+![bulka-team-logo](readme_photos/bulka-team.jpg)
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Celem projektu było napisanie "kalendarza historycznego" podczas [hackatonu WawCode](http://www.wawcode.pl/). Kalendarz miał za zadanie wyświetlać wydarzenie z historii Warszawy, które odbyło się tego dnia np. 50 albo 200 lat temu
+ 
+<div align="center">
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+![screenshot1](readme_photos/screenshot1.jpg)
 
-What's inside?
---------------
+</div>
 
-The Symfony Standard Edition is configured with the following defaults:
+Aplikacja umożliwiałaby dodawanie zdjęć oraz komentarzy przez użytkowników, którzy mogliby rozszerzeyć suchą 'wikipedyczną' wiedzę o dodatkowe materiały
 
-  * An AppBundle you can use to start coding;
+Zadanie było tym trudniejsze, iż czas na napisanie apki był ograniczony - tylko 20 godzin podczas weekendowego hackatonu.
 
-  * Twig as the only configured template engine;
+Aplikacja została napisana w PHP (Symfony, Doctrine) oraz ReactJS.
 
-  * Doctrine ORM/DBAL;
+<div align="center">
 
-  * Swiftmailer;
+![screenshot2](readme_photos/screenshot2.jpg)
 
-  * Annotations enabled for everything.
+![screenshot3](readme_photos/screenshot3.jpg)
 
-It comes pre-configured with the following bundles:
+</div>
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+## Instalacja
+Kod projektu został rozdzielony na 3 repozytoria:
+- Frontend w ReactJS - [github.com/**odisei369/wawcode-pwa**](https://github.com/odisei369/wawcode-pwa)
+- Backend API w Symfony i Doctrine - [github.com/**ZielonyBuszmen/WawCodeApi**](https://github.com/ZielonyBuszmen/WawCodeApi)
+- Crawler zbierający dane o wydarzeniach w Symfony - [github.com/**Sikora00/WawCodeCrawler**](https://github.com/Sikora00/WawCodeCrawler)
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+Instalacja jest podzielona na 3 etapy, musimy postawić środowisko do API, do crawlera oraz do ReactJS. Mimo wszystko nie wymaga to dużych nakładów czasowych, a nasz piękny kod powinien szybko się uruchomić
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+### 1. Uruchomienie API
+Wystarczy sklonować repozytorium, oraz wykonać poniższe instrukcje.
+Do działania wymagana jest działająca **baza danych MySQ** oraz zainstalowany w systemie **PHP w wersji 7.1** (lub wyższej).
+```
+git clone https://github.com/ZielonyBuszmen/WawCodeApi.git
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
+composer install
 
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:update --force
+php bin/console doctrine:fixtures:load -q
 
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
+php bin/console server:run
+ 
+```
+API domyślnie będzie pod aresem **http://127.0.0.1:8000**
 
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
 
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
+### 2. Wypełnienie danych Crawlerem
+// todo
 
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
 
-  * [**SensioGeneratorBundle**][13] (in dev env) - Adds code generation
-    capabilities
+### 3. Postawienie Frontendu w ReactJS
+// todo
 
-  * [**WebServerBundle**][14] (in dev env) - Adds commands for running applications
-    using the PHP built-in web server
 
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
+## Dodatkowe info
 
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
+### Lista routów do API
+```
+/month/{month}             -> GET - wybiera wydarzenia z danego miesiąca
+/month-day/{month}/{day}   -> GET - wybiera wydarzenia z danego miesiąca i dnia
+/today                     -> GET - wydarzenia z dzisiaj
+/random                    -> GET - losowe wydarzenie z dzisiejszego dnia
+/create                    -> POST - zapisuje wydarzenie w bazce
+```
 
-Enjoy!
 
-[1]:  https://symfony.com/doc/3.3/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.3/doctrine.html
-[8]:  https://symfony.com/doc/3.3/templating.html
-[9]:  https://symfony.com/doc/3.3/security.html
-[10]: https://symfony.com/doc/3.3/email.html
-[11]: https://symfony.com/doc/3.3/logging.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
-[14]: https://symfony.com/doc/current/setup/built_in_web_server.html
+## Prezentacja (zrzut slajdów)
+
+![foto](readme_photos/Slajd1.png)
+
+![foto](readme_photos/Slajd2.png)
+
+![foto](readme_photos/Slajd3.png)
+
+![foto](readme_photos/Slajd4.png)
+
+![foto](readme_photos/Slajd5.png)
+
+![foto](readme_photos/Slajd6.png)
+
+![foto](readme_photos/Slajd7.png)
+
+![foto](readme_photos/Slajd8.png)
+
+![foto](readme_photos/Slajd9.png)
+
+![foto](readme_photos/Slajd10.png)
